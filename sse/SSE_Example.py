@@ -61,22 +61,22 @@ class ExtensionService(ServerSideExtension_pb2_grpc.ConnectorServicer):
                                     pluginVersion='v0.0.1')
     # SumOfColumn
     func0 = capabilities.functions.add()
-    func0.functionId   = 0        # 関数ID
-    func0.name = 'SumOfColumn'    # 関数名
-    func0.functionType = 1        # 関数タイプ=0=スカラー,1=集計,2=テンソル
-    func0.returnType   = 1        # 関数戻り値=0=文字列,1=数値,2=Dual
-    func0.params.add(name='col1', # パラメータ名
-                     dataType=1)  # パラメータタイプ=0=文字列,1=数値,2=Dual
+    func0.functionId = 0                   # 関数ID
+    func0.name = 'SumOfColumn'             # 関数名
+    func0.functionType = SSE.AGGREGATION   # 関数タイプ=0=スカラー,1=集計,2=テンソル
+    func0.returnType   = SSE.NUMERIC       # 関数戻り値=0=文字列,1=数値,2=Dual
+    func0.params.add(name='col1',          # パラメータ名
+                     dataType=SSE.NUMERIC) # パラメータタイプ=0=文字列,1=数値,2=Dual
     # SumOfRows
     func1 = capabilities.functions.add()
-    func1.functionId   = 1        # 関数ID
-    func1.name = 'SumOfRows'      # 関数名
-    func1.functionType = 2        # 関数タイプ=0=スカラー,1=集計,2=テンソル
-    func1.returnType   = 1        # 関数戻り値=0=文字列,1=数値,2=Dual
-    func1.params.add(name='col1', # パラメータ名
-                     dataType=1)  # パラメータタイプ=0=文字列,1=数値,2=Dual
-    func1.params.add(name='col2', # パラメータ名
-                     dataType=1)  # パラメータタイプ=0=文字列,1=数値,2=Dual
+    func1.functionId   = 1                 # 関数ID
+    func1.name = 'SumOfRows'               # 関数名
+    func1.functionType = SSE.TENSOR        # 関数タイプ=0=スカラー,1=集計,2=テンソル
+    func1.returnType = SSE.NUMERIC         # 関数戻り値=0=文字列,1=数値,2=Dual
+    func1.params.add(name='col1',          # パラメータ名
+                     dataType=SSE.NUMERIC) # パラメータタイプ=0=文字列,1=数値,2=Dual
+    func1.params.add(name='col2',          # パラメータ名
+                     dataType=SSE.NUMERIC) # パラメータタイプ=0=文字列,1=数値,2=Dual
     return capabilities
 
 if __name__ == '__main__':
