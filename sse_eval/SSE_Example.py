@@ -30,7 +30,11 @@ class ExtensionService(ServerSideExtension_pb2_grpc.ConnectorServicer):
           all_args.append(script_args)
         all_results = []
         for script_args in all_args:
-          result = eval(header.script, {'args': script_args, 'numpy': numpy})
+          result = float('nan')
+          try:
+            result = eval(header.script, {'args': script_args, 'numpy': numpy})
+          except Exception as e:
+            print(e)
           all_results.append(result)
         response_rows = []
         for result in all_results:
@@ -44,7 +48,11 @@ class ExtensionService(ServerSideExtension_pb2_grpc.ConnectorServicer):
         yield SSE.BundledRows(rows=response_rows)
     else:
       script_args = []
-      result = eval(header.script, {'args': script_args, 'numpy': numpy})
+      result = float('nan')
+      try:
+        result = eval(header.script, {'args': script_args, 'numpy': numpy})
+      except Exception as e:
+        print(e)
       if isinstance(result, str) or not hasattr(result, '__iter__'):
         duals = iter([SSE.Dual(numData=float(result))])
         yield SSE.BundledRows(rows=[SSE.Row(duals=duals)])
