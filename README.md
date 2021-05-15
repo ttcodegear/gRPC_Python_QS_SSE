@@ -81,3 +81,43 @@ SSEPlugin=Column,localhost:50053
 
 ------
 
+[for SSL]
+
+------
+
+  ...
+
+  with open('./sse_server_key.pem', 'rb') as f:
+
+    SERVER_CERT_KEY = f.read()
+
+  with open('./sse_server_cert.pem', 'rb') as f:
+
+    SERVER_CERT = f.read()
+
+  with open('./root_cert.pem', 'rb') as f:
+
+    ROOT_CERT = f.read()
+
+  server_credentials = grpc.ssl_server_credentials(
+
+                            [(SERVER_CERT_KEY, SERVER_CERT)], ROOT_CERT, True)
+
+  server.add_secure_port('[::]:50053', server_credentials)
+
+  ...
+
+------
+
+C:\Users\[user]\Documents\Qlik\Sense\Settings.ini
+
+------
+
+[Settings 7]
+
+SSEPlugin=Column,localhost:50053,C:\...\sse_Column_generated_certs\sse_Column_client_certs_used_by_qlik
+
+
+
+------
+
